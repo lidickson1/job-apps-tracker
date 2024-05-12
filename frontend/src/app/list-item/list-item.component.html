@@ -1,0 +1,33 @@
+<mat-card class="haha">
+  <!-- <mat-card-content> -->
+  <div
+    style="
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    "
+  >
+    <div style="display: flex; align-items: center; gap: 1rem">
+      <img
+        style="height: 5rem"
+        src="https://angular.io/assets/images/logos/angular/angular.svg"
+      />
+      <div>
+        <h3 style="margin-bottom: 0.5rem">{{ title }}</h3>
+        <p>{{ company }}</p>
+        <mat-chip-set>
+          <mat-chip>Remote</mat-chip>
+          <mat-chip>Contract</mat-chip>
+        </mat-chip-set>
+      </div>
+    </div>
+    <div style="text-align: right">
+      <button mat-flat-button color="primary">Applied</button>
+      <p style="margin-top: 1rem; margin-bottom: 0">
+        Last updated: {{ lastUpdatedDate }}
+      </p>
+    </div>
+  </div>
+  <!-- </mat-card-content> -->
+</mat-card>

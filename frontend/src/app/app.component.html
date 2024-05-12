@@ -1,0 +1,54 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<style></style>
+
+<main class="main">
+  <div style="padding: 0 10vw 0 10vw">
+    <h1
+      style="
+        text-align: center;
+        font-size: 2rem;
+        padding: 2rem 0;
+        margin-bottom: 0;
+      "
+    >
+      Job Applications Tracker
+    </h1>
+    <div style="display: flex; flex-direction: column; gap: 1rem">
+      <app-list-item
+        [title]="'Full Stack Web Developer'"
+        [company]="'Angular'"
+        [lastUpdated]="currentDate"
+      ></app-list-item>
+      <app-list-item
+        [title]="'Full Stack Web Developer'"
+        [company]="'Angular'"
+        [lastUpdated]="currentDate"
+      ></app-list-item>
+    </div>
+    <button
+      mat-fab
+      color="primary"
+      style="position: absolute; bottom: 2rem; right: 2rem"
+    >
+      <mat-icon fontIcon="add"></mat-icon>
+    </button>
+  </div>
+</main>
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<router-outlet />
