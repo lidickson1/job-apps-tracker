@@ -1,0 +1,16 @@
+/* form {
+  display: flex;
+  flex-direction: column;
+ align-items: flex-start;
+  display: block;
+} */
+
+mat-form-field {
+  display: block;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 2rem;
+}

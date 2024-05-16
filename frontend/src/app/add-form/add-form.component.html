@@ -1,0 +1,141 @@
+<h2 mat-dialog-title style="text-align: center">Add New Application</h2>
+<mat-dialog-content>
+  <form class="example-form" [formGroup]="formGroup" (ngSubmit)="submitForm()">
+    <div style="display: flex; gap: 1rem">
+      <img
+        src="{{ formGroup.controls.image.value }}"
+        style="height: 8rem; margin-bottom: 16px"
+        onerror="this.src='https://bulma.io/assets/images/placeholders/128x128.png';"
+      />
+      <div style="flex-grow: 1">
+        <mat-form-field class="example-full-width">
+          <mat-label>Company</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="company"
+            [matAutocomplete]="auto"
+            required
+          />
+          <mat-autocomplete
+            autoActiveFirstOption
+            #auto="matAutocomplete"
+            (optionSelected)="onCompanyChange($event)"
+          >
+            @for (option of filteredOptions; track option) {
+            <mat-option [value]="option">{{ option }}</mat-option>
+            }
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field class="example-form-field">
+          <mat-label>Image</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="image"
+            name="image"
+            required
+          />
+          @if (formGroup.controls.image.value) {
+          <button
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="formGroup.controls.image.setValue('')"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+          }
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-form-field class="example-form-field">
+      <mat-label>Position</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="position"
+        name="position"
+        required
+      />
+      @if (formGroup.controls.position.value) {
+      <button
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="formGroup.controls.position.setValue('')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+      }
+    </mat-form-field>
+
+    <div style="display: flex; gap: 1rem">
+      <mat-form-field>
+        <mat-label>Choose a date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="date"
+          required
+        />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          name="time"
+          [format]="24"
+          [ngxMatTimepicker]="pickerB"
+          [value]="(time | date : 'HH:mm') || '00:00'"
+        />
+        <mat-icon matSuffix (click)="pickerB.open()"> watch_later </mat-icon>
+      </mat-form-field>
+      <ngx-mat-timepicker
+        #pickerB
+        (timeSet)="onTimeChange($event)"
+        dottedMinutesInGap
+      ></ngx-mat-timepicker>
+    </div>
+
+    <mat-form-field>
+      <mat-label>Location</mat-label>
+      <mat-select formControlName="location" name="location">
+        <mat-option value="on-site">On-site</mat-option>
+        <mat-option value="hybrid">Hybrid</mat-option>
+        <mat-option value="remote">Remote</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Job type</mat-label>
+      <mat-select formControlName="job_type" name="job_type">
+        <mat-option value="full-time">Full-time</mat-option>
+        <mat-option value="part-time">Part-time</mat-option>
+        <mat-option value="contract">Contract</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div style="display: flex; justify-content: center">
+      <button
+        mat-flat-button
+        color="primary"
+        type="submit"
+        [disabled]="!this.formGroup.valid"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</mat-dialog-content>
+<!-- <mat-dialog-actions>
+  <button mat-flat-button color="primary">Submit</button>
+</mat-dialog-actions> -->

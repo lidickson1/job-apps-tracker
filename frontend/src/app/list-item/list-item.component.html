@@ -8,25 +8,47 @@
       padding: 1rem 2rem;
     "
   >
-    <div style="display: flex; align-items: center; gap: 1rem">
+    <div style="display: flex; align-items: center; gap: 2rem">
       <img
-        style="height: 5rem"
-        src="https://angular.io/assets/images/logos/angular/angular.svg"
+        style="height: 5rem; background-color: white"
+        [src]="
+          companies[application.company]
+            ? companies[application.company].image
+            : ''
+        "
       />
       <div>
-        <h3 style="margin-bottom: 0.5rem">{{ title }}</h3>
-        <p>{{ company }}</p>
+        <h3 style="margin-bottom: 0.5rem">
+          <b>{{ application.position }}</b>
+        </h3>
+        <p>
+          {{
+            companies[application.company]
+              ? companies[application.company].name
+              : ""
+          }}
+        </p>
         <mat-chip-set>
-          <mat-chip>Remote</mat-chip>
-          <mat-chip>Contract</mat-chip>
+          @if (application.location) {
+          <mat-chip>{{ application.location | titlecase }}</mat-chip>
+          } @if (application.job_type) {
+          <mat-chip>{{ application.job_type | titlecase }}</mat-chip>
+          }
         </mat-chip-set>
       </div>
     </div>
     <div style="text-align: right">
+      @if (application.status === "applied") {
       <button mat-flat-button color="primary">Applied</button>
       <p style="margin-top: 1rem; margin-bottom: 0">
-        Last updated: {{ lastUpdatedDate }}
+        Applied at: {{ formatDate(application.appliedDate) }}
       </p>
+      } @else {
+      <button mat-flat-button color="warn">Rejected</button>
+      <p style="margin-top: 1rem; margin-bottom: 0">
+        Rejected at: {{ formatDate(application.rejectedDate!) }}
+      </p>
+      }
     </div>
   </div>
   <!-- </mat-card-content> -->
