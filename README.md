@@ -2,6 +2,8 @@
 
 A full stack application built to track the progress on my job applications. Built with [Angular](https://angular.io/) and Typescript for the frontend, Java and [Spring Boot](https://spring.io/projects/spring-boot) for the backend. The backend also connects to an [Oracle SQL database](https://www.oracle.com/ca-en/database/technologies/oracle-database-software-downloads.html).
 
+![](https://github.com/lidickson1/job-apps-tracker/blob/master/screenshot.png?raw=true)
+
 ## Frontend
 
 Make sure you have the Angular CLI installed:
