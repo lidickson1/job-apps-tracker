@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { ListItemComponent } from './list-item/list-item.component';
@@ -6,7 +6,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddFormComponent } from './add-form/add-form.component';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import {
+  MatPaginator,
+  MatPaginatorModule,
+  PageEvent,
+} from '@angular/material/paginator';
+import { CompanyFilterComponent } from './company-filter/company-filter.component';
 
 import { Companies, Company, Application } from './models';
 
@@ -21,6 +26,7 @@ import { Companies, Company, Application } from './models';
     MatDialogModule,
     AddFormComponent,
     MatPaginatorModule,
+    CompanyFilterComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -31,6 +37,8 @@ export class AppComponent {
   companies: Companies = {};
   applications: Application[] = [];
   numOfItems: number = 0;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(public dialog: MatDialog) {}
 
@@ -76,5 +84,19 @@ export class AppComponent {
       .then((res: Application[]) => {
         this.applications = res;
       });
+  }
+
+  filterByCompany(filter: string | null): void {
+    fetch(
+      filter
+        ? `http://localhost:8080/applications-company?company=${filter}`
+        : 'http://localhost:8080/applications?page=0'
+    )
+      .then((res) => res.json())
+      .then((res: Application[]) => {
+        this.applications = res;
+      });
+    this.paginator.pageIndex = 0;
+    this.paginator.disabled = !!filter; //disable pagination if there's a company filter
   }
 }

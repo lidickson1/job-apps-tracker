@@ -1,0 +1,25 @@
+<mat-form-field style="width: 20rem">
+  <mat-label>Filter by Company</mat-label>
+  <input
+    type="text"
+    matInput
+    [matAutocomplete]="auto"
+    [formControl]="myControl"
+  />
+  @if (myControl.value) {
+  <button
+    matSuffix
+    mat-icon-button
+    aria-label="Clear"
+    (click)="myControl.setValue('')"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+  }
+  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+    @for (option of filteredOptions; track option) {
+    <mat-option [value]="option">{{ option }}</mat-option>
+    }
+  </mat-autocomplete>
+</mat-form-field>
+<!-- TODO add clear button -->

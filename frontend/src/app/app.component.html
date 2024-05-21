@@ -22,6 +22,12 @@
       Job Applications Tracker
     </h1>
     <h2 style="text-align: center">Total applications: {{ numOfItems }}</h2>
+    <div style="display: flex; justify-content: center">
+      <app-company-filter
+        [companies]="companies"
+        (notify)="filterByCompany($event)"
+      ></app-company-filter>
+    </div>
     <div
       style="
         display: flex;

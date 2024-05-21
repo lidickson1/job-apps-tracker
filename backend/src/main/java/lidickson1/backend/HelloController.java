@@ -1,17 +1,21 @@
 package lidickson1.backend;
 
+import me.xdrop.fuzzywuzzy.FuzzySearch;
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.util.Pair;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -44,6 +48,18 @@ public class HelloController {
         } else {
             return this.applicationRepository.findAll();
         }
+    }
+
+    @GetMapping("/applications-company")
+    public @ResponseBody Iterable<Application> getApplicationsByCompany(@RequestParam String company) {
+        //convert iterator to list
+        List<Pair<Application, Integer>> applications = new ArrayList<>();
+        this.applicationRepository.findAll().forEach(application -> applications.add(
+                Pair.of(application, FuzzySearch.ratio(this.companyRepository.findById(application.company).get().name, company))
+        ));
+        applications.sort((a, b) -> Integer.compare(b.getSecond(), a.getSecond()));
+        //only accept fuzzy ratio >= 10%, and get the top 10
+        return applications.stream().filter(pair -> pair.getSecond() >= 10).map(Pair::getFirst).limit(10).collect(Collectors.toList());
     }
 
     @GetMapping("/applications/total")

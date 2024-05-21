@@ -84,14 +84,6 @@ export class AddFormComponent {
     });
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return Object.values(this.data.companies)
-      .map((x) => x.name)
-      .filter((option) => option.toLowerCase().includes(filterValue));
-  }
-
   submitForm(): void {
     if (this.formGroup.errors) {
       console.log('errors');
@@ -118,8 +110,10 @@ export class AddFormComponent {
         }),
       })
         .then((res) => res.json())
-        .then((res) => console.log(res));
-      this.dialogRef.close('success');
+        .then((res) => {
+          console.log(res);
+          this.dialogRef.close('success');
+        });
     }
   }
 
