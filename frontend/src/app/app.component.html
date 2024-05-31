@@ -36,22 +36,12 @@
         margin-bottom: 2rem;
       "
     >
-      <!-- <app-list-item
-        [title]="'Full Stack Web Developer'"
-        [company]="2"
-        [lastUpdated]="currentDate"
-        [companies]="companies"
-      ></app-list-item>
-      <app-list-item
-        [title]="'Full Stack Web Developer'"
-        [company]="4"
-        [lastUpdated]="currentDate"
-        [companies]="companies"
-      ></app-list-item> -->
+      <!-- We need to bind this so that when a child components calls the function, the this would still refer to this parent component -->
       @for (item of applications; track item) {
       <app-list-item
         [application]="item"
         [companies]="companies"
+        [loadData]="loadData.bind(this)"
       ></app-list-item>
       }
     </div>

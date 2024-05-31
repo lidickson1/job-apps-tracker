@@ -39,7 +39,9 @@
     </div>
     <div style="text-align: right">
       @if (application.status === "applied") {
-      <button mat-flat-button color="primary">Applied</button>
+      <button mat-flat-button color="primary" (click)="openDialog()">
+        Applied
+      </button>
       <p style="margin-top: 1rem; margin-bottom: 0">
         Applied at: {{ formatDate(application.appliedDate) }}
       </p>

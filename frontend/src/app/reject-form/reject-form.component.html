@@ -1,0 +1,46 @@
+<h2 mat-dialog-title style="text-align: center">Reject 😥</h2>
+<mat-dialog-content>
+  <form class="example-form" (ngSubmit)="submitForm()">
+    <div style="display: flex; gap: 1rem">
+      <mat-form-field>
+        <mat-label>Choose a date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          name="date"
+          [(ngModel)]="date"
+          required
+        />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          name="time"
+          [format]="24"
+          [ngxMatTimepicker]="pickerB"
+          [value]="(time | date : 'HH:mm') || '00:00'"
+        />
+        <mat-icon matSuffix (click)="pickerB.open()"> watch_later </mat-icon>
+      </mat-form-field>
+      <ngx-mat-timepicker
+        #pickerB
+        (timeSet)="onTimeChange($event)"
+        dottedMinutesInGap
+      ></ngx-mat-timepicker>
+    </div>
+
+    <div style="display: flex; justify-content: center">
+      <button mat-flat-button color="primary" type="submit">Submit</button>
+    </div>
+  </form>
+</mat-dialog-content>
+<!-- <mat-dialog-actions>
+  <button mat-flat-button color="primary">Submit</button>
+</mat-dialog-actions> -->

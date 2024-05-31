@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.util.Pair;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -95,6 +97,20 @@ public class HelloController {
             return this.applicationRepository.save(application);
         } catch (ParseException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    record Reject(int id, String timestamp) {}
+    @PostMapping("/application/reject")
+    public @ResponseBody Application rejectApplication(@RequestBody Reject reject) {
+        var optional = this.applicationRepository.findById(reject.id);
+        if (optional.isPresent()) {
+            Application application = optional.get();
+            application.status = "rejected";
+            application.rejectedDate = Timestamp.from(Instant.parse(reject.timestamp));
+            return this.applicationRepository.save(application);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 }

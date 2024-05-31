@@ -59,7 +59,7 @@ export class AppComponent {
     });
   }
 
-  private loadData(): void {
+  loadData(): void {
     fetch('http://localhost:8080/companies')
       .then((res) => res.json())
       .then((res) => {
