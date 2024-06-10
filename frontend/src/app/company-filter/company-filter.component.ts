@@ -55,4 +55,8 @@ export class CompanyFilterComponent {
   onCompanyChange(event: MatAutocompleteSelectedEvent): void {
     this.notify.emit(event.option.value);
   }
+
+  public clearFilter() {
+    this.myControl.setValue('');
+  }
 }

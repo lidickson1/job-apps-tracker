@@ -39,6 +39,7 @@ export class AppComponent {
   numOfItems: number = 0;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(CompanyFilterComponent) companyFilter!: CompanyFilterComponent;
 
   constructor(public dialog: MatDialog) {}
 
@@ -60,6 +61,9 @@ export class AppComponent {
   }
 
   loadData(): void {
+    if (this.companyFilter) {
+      this.companyFilter.clearFilter();
+    }
     fetch('http://localhost:8080/companies')
       .then((res) => res.json())
       .then((res) => {
